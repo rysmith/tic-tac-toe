@@ -1,7 +1,27 @@
-.gameboard {
-    width: 300px;
-    display: inline-block;
+body {
+    background-color: rgba(34, 34, 34, 0.53);
+    padding: 0px;
+}
+
+.container {
+    margin: 0 auto;
     text-align: center;
+    width: 500px;
+    background-color: rgba(30, 188, 206, 0.56);
+}
+
+.gameboard {
+    width: 500px;
+    height: 500px;
+    text-align: center;
+}
+
+/*TODO(ryan): remove box CSS and apply row and col css to individual boxes*/
+.box {
+    border: 1px solid black;
+    height:30%;
+    width: 30%;
+    float: left;
 }
 
 .first-row {
