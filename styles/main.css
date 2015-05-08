@@ -1,0 +1,37 @@
+.gameboard {
+    width: 300px;
+    display: inline-block;
+    text-align: center;
+}
+
+.first-row {
+    border-bottom: 1px solid black;
+    height: 100px;
+}
+
+.second-row {
+    border-bottom: 1px solid black;
+    height: 100px;
+}
+
+.third-row {
+    height: 100px;
+    
+}
+
+.first-col {
+    border-right: 1px solid black;
+    width: 100px;
+    height: 100px;
+}
+
+.second-col {
+    border-right: 1px solid black;
+    width: 100px;
+    height: 100px;
+}
+
+.third-col {
+    width: 100px;
+    height: 100px;
+}
