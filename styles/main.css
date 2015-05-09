@@ -4,54 +4,58 @@ body {
 }
 
 .container {
+    padding-top:10px;
     margin: 0 auto;
     text-align: center;
     width: 500px;
     background-color: rgba(30, 188, 206, 0.56);
+    border-radius: 10px;
 }
 
 .gameboard {
     width: 500px;
     height: 500px;
     text-align: center;
-}
-
-/*TODO(ryan): remove box CSS and apply row and col css to individual boxes*/
-.box {
-    border: 1px solid black;
-    height:30%;
-    width: 30%;
-    float: left;
+    background-color: white;
+    border-radius: 30px;
 }
 
 .first-row {
     border-bottom: 1px solid black;
-    height: 100px;
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
 
 .second-row {
     border-bottom: 1px solid black;
-    height: 100px;
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
 
 .third-row {
-    height: 100px;
-    
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
 
 .first-col {
     border-right: 1px solid black;
-    width: 100px;
-    height: 100px;
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
 
 .second-col {
     border-right: 1px solid black;
-    width: 100px;
-    height: 100px;
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
 
 .third-col {
-    width: 100px;
-    height: 100px;
+    height:32.9%;
+    width: 32.9%;
+    float: left;
 }
