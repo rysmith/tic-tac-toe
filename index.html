@@ -12,13 +12,9 @@
         <h5>xxx {{"angular " + "is " + "working"}} ooo</h5>
 
         <div class="gameboard">
-            <!-----------------------------------------------------------------
-            TODO(ryan): add box click functionality for playerMove()
-            TODO(ryan): change box.content and box.click depending on whose turn it is
-            ------------------------------------------------------------------->
 
-            <div ng-repeat="box in board.gameBoard" ng-class="box.class" ng-click="board.checkForWinner()">{{box.location}}</div>
-            <!--add in 'board.playerMove($index);' to 'ng-click' as this is the playerMove() logic-->
+            <div ng-repeat="box in board.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">{{box.content}}</div>
+            <!--add in 'board.playerMove($index);' to 'ng-click' as this is the  logic-->
 
         </div>
         <div><p>Some Results...</p></div>
