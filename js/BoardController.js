@@ -114,7 +114,6 @@ function BoardController() {
                 this.gameBoard[location].value = 1;
                 playerOneTurn = false;
 
-                //TODO(ryan):complete check for winner logic for playerOne
                 if (this.checkForWinner() === "playerOne") {
                     //end game in favor of playerOne
                     console.log(winner + " is the winner");
@@ -216,4 +215,8 @@ function BoardController() {
         return winner;
     }
 
+    this.startNewGame = startNewGame;
+    function startNewGame () {
+        document.location.reload(true);
+    }
 }

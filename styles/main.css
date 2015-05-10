@@ -1,35 +1,116 @@
 /*TODO(ryan): create a page theme*/
 
+
+{ margin: 0; padding: 0; }
+
 body {
-    background-color: rgba(34, 34, 34, 0.53);
-    padding: 0px;
+ background-color: rgba(136, 136, 136, 0.64);
 }
 
-#results {
-    float: left;
-    background-color: rgba(30, 188, 206, 0.56);
-    border-radius: 10px;
-    margin-left: 20px;
-    padding: 20px;
-    width: 400px;
+#wrapper {
+    padding-left: 150px;
+    padding-right: 120px;
+
 }
 
-.container {
-    padding-top:10px;
-    margin: 0 auto;
-    text-align: center;
-    width: 500px;
-    background-color: rgba(30, 188, 206, 0.56);
-    border-radius: 10px;
-    margin-top: 20px;
+.monterey-bg {
+    background: url(../img/20101018_093546.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.grapes-bg {
+    background: url(../img/20101018_094036.jpg) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
+.sf-bg {
+    background: url(../img/IMG_5140.JPG) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.lg-bg {
+    background: url(../img/20100322_084230.jpg) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.break-bg {
+    background: url(../img/1280px-Brian_Shul_in_the_cockpit_of_the_SR-71_Blackbird.jpg) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.sunlight-bg {
+    background: url(../img/20100520_152935.jpg) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.tahoe-bg {
+    background: url(../img/IMG_5298.JPG) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.button-primary {
+    float:right;
+}
+
+.winner-result {
+    border: 1px solid #0FA0CE;
+    border-radius: 12px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+.row {
+    margin-top: 100px;
+}
+.colOne {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    opacity: .95;
+    border: 5px solid #0FA0CE;
+}
+
+.colTwo {
+    background-color: #0FA0CE;
+    border-radius: 20px;
+    padding-left: 75px;
+    opacity: .88;
+    border: 5px solid white;
+}
 .gameboard {
-    width: 500px;
-    height: 500px;
-    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 400px;
+    height: 400px;
     background-color: white;
     border-radius: 30px;
+    text-align: center;
+
 }
 
 .first-row {
