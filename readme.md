@@ -1,1 +1,4 @@
-Tic-Tac-Toe application for WDI
+###Tic-Tac-Toe Game for WDI
+
+Built with AngularJS.
+

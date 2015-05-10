@@ -2,23 +2,107 @@ ticTacToeApp
     .controller("BoardController", BoardController);
 
 function BoardController() {
+    //TODO(ryan): create win counter
+    //TODO(ryan): disable gameBoard click after win
+    //TODO(ryan): create 'start new game' button and accompanying logic
 
-    // get the array of the tic-tac-toe board
+    //an array containing 9 objects each representing a box on the game board
     this.gameBoard = [
-        {location: 'topLeft', row: 1, column: 1, diagonal: 1, content: null, value: 0, class: "first-row first-col"},
-        {location: 'topMiddle', row: 1, column: 2, diagonal: 0, content: null, value: 0,  class: "first-row second-col"},
-        {location: 'topRight', row: 1, column: 3, diagonal: 2, content: null, value: 0,  class: "first-row third-col"},
-        {location: 'centerLeft', row: 2, column: 1, diagonal: 0, content: null, value: 0,  class: "second-row first-col"},
-        {location: 'centerMiddle', row: 2, column: 2, diagonal: 3, content: null, value: 0,  class: "second-row second-col"},
-        {location: 'centerRight', row: 2, column: 3, diagonal: 0, content: null, value: 0,  class: "second-row third-col"},
-        {location: 'bottomLeft', row: 3, column: 1, diagonal: 2, content: null, value: 0,  class: "third-row first-col"},
-        {location: 'bottomMiddle', row: 3, column: 2, diagonal: 0, content: null, value: 0,  class: "third-row second-col"},
-        {location: 'bottomRight', row: 3, column: 3, diagonal: 1, content: null, value: 0,  class: "third-row third-col"}
+        {
+            location: 'topLeft',
+            row: 1,
+            column: 1,
+            diagonal: 1,
+            content: null,
+            value: 0,
+            class: "first-row first-col"
+        },
+        {
+            location: 'topMiddle',
+            row: 1,
+            column: 2,
+            diagonal: 0,
+            content: null,
+            value: 0,
+            class: "first-row second-col"
+        },
+        {
+            location: 'topRight',
+            row: 1,
+            column: 3,
+            diagonal: 2,
+            content: null,
+            value: 0,
+            class: "first-row third-col"
+        },
+        {
+            location: 'centerLeft',
+            row: 2, column: 1,
+            diagonal: 0,
+            content: null,
+            value: 0,
+            class: "second-row first-col"
+        },
+        {
+            location: 'centerMiddle',
+            row: 2,
+            column: 2,
+            diagonal: 3,
+            content: null,
+            value: 0,
+            class: "second-row second-col"
+        },
+        {
+            location: 'centerRight',
+            row: 2,
+            column: 3,
+            diagonal: 0,
+            content: null,
+            value: 0,
+            class: "second-row third-col"
+        },
+        {
+            location: 'bottomLeft',
+            row: 3,
+            column: 1,
+            diagonal: 2,
+            content: null,
+            value: 0,
+            class: "third-row first-col"
+        },
+        {
+            location: 'bottomMiddle',
+            row: 3,
+            column: 2,
+            diagonal: 0,
+            content: null,
+            value: 0,
+            class: "third-row second-col"
+        },
+        {
+            location: 'bottomRight',
+            row: 3,
+            column: 3,
+            diagonal: 1,
+            content: null,
+            value: 0,
+            class: "third-row third-col"
+        }
     ];
+    //end of gameBoard array
 
     var winner = null;
+
+    //player one goes first
     var playerOneTurn = true;
 
+    //track player wins
+    var playerOneWinCount = 0;
+    var playerTwoWinCount = 0;
+
+    //show box content on click,
+    //track which boxes have been clicked,
+    //and check if either player has won after his or her last move
     this.playerMove = playerMove;
     function playerMove (location) {
 
@@ -31,11 +115,13 @@ function BoardController() {
                 playerOneTurn = false;
 
                 //TODO(ryan):complete check for winner logic for playerOne
-                //if (this.checkForWinner() === "playerOne") {
-                //end game in favor of playerOne
-                //} else {
-                // move along, nothing to see here...
-                //}
+                if (this.checkForWinner() === "playerOne") {
+                    //end game in favor of playerOne
+                    console.log(winner + " is the winner");
+                } else if (this.checkForWinner() === "playerTwo"){
+                    //end game in favor of player two
+                    console.log(winner + " is the winner");
+                }
 
             } else {
 
@@ -59,9 +145,10 @@ function BoardController() {
 
     this.checkForWinner = checkForWinner;
     function checkForWinner () {
+
         var gameBoard = this.gameBoard;
 
-        function createThreeBoxArray () {
+        function createThreeBoxArrays () {
             var threeBoxArray = [];
 
             //TODO(ryan): create function for column and row check
@@ -72,7 +159,7 @@ function BoardController() {
                         //create row array
                         threeBoxArray.push(gameBoard[i].value);
                         if (threeBoxArray.length === 3) {
-                            checkThreeBoxes(threeBoxArray);
+                            checkThreeBoxArray(threeBoxArray);
                             threeBoxArray = [];
                         }
 
@@ -87,7 +174,7 @@ function BoardController() {
                         //create column array
                         threeBoxArray.push(gameBoard[q].value);
                         if (threeBoxArray.length === 3) {
-                            checkThreeBoxes(threeBoxArray);
+                            checkThreeBoxArray(threeBoxArray);
                             threeBoxArray = [];
                         }
 
@@ -97,13 +184,13 @@ function BoardController() {
 
             //TODO(ryan): create function for diagonal check
             //check the diagonals
-            for (var p = 1; p < 3; p++) {
-                for (var q = 0; q < gameBoard.length; q++) {
-                    if (gameBoard[q].diagonal === p || gameBoard[q].diagonal === 3) {
+            for (var r = 1; r < 3; r++) {
+                for (var w = 0; w < gameBoard.length; w++) {
+                    if (gameBoard[w].diagonal === r || gameBoard[w].diagonal === 3) {
                         //create column array
-                        threeBoxArray.push(gameBoard[q].value);
+                        threeBoxArray.push(gameBoard[w].value);
                         if (threeBoxArray.length === 3) {
-                            checkThreeBoxes(threeBoxArray);
+                            checkThreeBoxArray(threeBoxArray);
                             threeBoxArray = [];
                         }
 
@@ -113,18 +200,20 @@ function BoardController() {
 
 
         } //end of threeBoxArray()
-        function checkThreeBoxes (threeBoxArray) {
+
+        function checkThreeBoxArray (threeBoxArray) {
             var boxZero = threeBoxArray[0];
             var boxOne = threeBoxArray[1];
             var boxTwo = threeBoxArray[2];
             if ((boxZero + boxOne + boxTwo) === 3) {
-                console.log("playerOne is the winner");
+                winner = "playerOne";
             } else if ((boxZero + boxOne + boxTwo) === -3) {
-                console.log("playerTwo is the winner")
+                winner = "playerTwo";
             }
-        }
-        createThreeBoxArray();
+        } //end of checkThreeBoxArray()
 
+        createThreeBoxArrays();
+        return winner;
     }
 
 }

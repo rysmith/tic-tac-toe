@@ -1,6 +1,17 @@
+/*TODO(ryan): create a page theme*/
+
 body {
     background-color: rgba(34, 34, 34, 0.53);
     padding: 0px;
+}
+
+#results {
+    float: left;
+    background-color: rgba(30, 188, 206, 0.56);
+    border-radius: 10px;
+    margin-left: 20px;
+    padding: 20px;
+    width: 400px;
 }
 
 .container {
@@ -10,6 +21,7 @@ body {
     width: 500px;
     background-color: rgba(30, 188, 206, 0.56);
     border-radius: 10px;
+    margin-top: 20px;
 }
 
 .gameboard {
