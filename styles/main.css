@@ -1,6 +1,4 @@
-/*TODO(ryan): create a page theme*/
-
-
+/*TODO(ryan): change column colors along with background image when theme changes*/
 { margin: 0; padding: 0; }
 
 body {
@@ -10,7 +8,14 @@ body {
 #wrapper {
     padding-left: 150px;
     padding-right: 120px;
+}
 
+.box-content {
+    padding-top: 25px;
+}
+
+.box-content i {
+    font-size: 50px;
 }
 
 .monterey-bg {
@@ -74,6 +79,15 @@ body {
     background-size: cover;
 }
 
+.cruz-bg {
+    background: url(../img/IMG_0207_small.JPG) no-repeat center center fixed;
+    no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 .button-primary {
     float:right;
 }
@@ -84,9 +98,11 @@ body {
     padding-left: 20px;
     padding-top: 20px;
 }
+
 .row {
     margin-top: 100px;
 }
+
 .colOne {
     background-color: white;
     border-radius: 20px;
@@ -102,6 +118,7 @@ body {
     opacity: .88;
     border: 5px solid white;
 }
+
 .gameboard {
     margin-top: 60px;
     margin-bottom: 60px;
@@ -110,7 +127,10 @@ body {
     background-color: white;
     border-radius: 30px;
     text-align: center;
+}
 
+.gameboard:hover {
+    cursor: pointer;
 }
 
 .first-row {

@@ -4,7 +4,7 @@ ticTacToeApp
 function BoardController() {
     //TODO(ryan): create win counter
     //TODO(ryan): disable gameBoard click after win
-    //TODO(ryan): create 'start new game' button and accompanying logic
+    //TODO(ryan): startNewGame should preserve playerWinCount
 
     //an array containing 9 objects each representing a box on the game board
     this.gameBoard = [
@@ -91,132 +91,183 @@ function BoardController() {
     ];
     //end of gameBoard array
 
+    this.alreadyPlayed = null;
+
     var winner = null;
+    var gameOver = false;
 
     //player one goes first
     var playerOneTurn = true;
+    var moveCount = 0;
 
     //track player wins
     var playerOneWinCount = 0;
     var playerTwoWinCount = 0;
 
-    //show box content on click,
-    //track which boxes have been clicked,
-    //and check if either player has won after his or her last move
+    //fires when a user clicks on the game board
+    //sets and displays each player's game piece (gameBoard.content)
+    //tracks where a game piece has been played (gameBoard.value)
+    //increments moveCount
+    //toggles playerOneTurn
+    //checks if either player has won via checkForWinner()
+    //increments player win count
     this.playerMove = playerMove;
-    function playerMove (location) {
-
+    function playerMove(location) {
+        var alreadyPlayed = this.alreadyPlayed;
+        //player can place a game piece if the box is empty
         if (this.gameBoard[location].value === 0) {
 
             if (playerOneTurn) {
+
                 // playerOne's turn
-                this.gameBoard[location].content = 'x';
+                this.gameBoard[location].content = 'fa fa-times';
                 this.gameBoard[location].value = 1;
                 playerOneTurn = false;
 
-                if (this.checkForWinner() === "playerOne") {
+                if (this.checkForWinner() === "Player One") {
+
                     //end game in favor of playerOne
                     console.log(winner + " is the winner");
-                } else if (this.checkForWinner() === "playerTwo"){
+                    gameOver = true;
+
+                } else if (this.checkForWinner() === "Player Two") {
+
                     //end game in favor of player two
                     console.log(winner + " is the winner");
+                    gameOver = true;
+
                 }
 
             } else {
 
                 //playerTwo's turn
-                this.gameBoard[location].content = 'o';
+                this.gameBoard[location].content = 'fa fa-circle-o';
                 this.gameBoard[location].value = -1;
                 playerOneTurn = true;
 
-                //TODO(ryan):complete check for winner logic for playerTwo
-                //if (this.checkForWinner() === "playerTwo") {
-                //end game in favor of playerTwo
-                //} else {
-                // move along, nothing to see here...
-                //}
             }
+
+            moveCount++;
+
         } else {
-            // this should run if you click on a square that has been played already
-            console.log("this square has been played");
+
+            //run if you click on a box that has been played already
+            alreadyPlayed = "This square has been played.  Please choose a different square.";
+            console.log(alreadyPlayed);
+            return alreadyPlayed;
+
         }
+
+        //checks to see who won and adds to that player's win total
+        incrementWinCount(winner);
+        function incrementWinCount (winner) {
+            if (winner === "Player One") {
+                playerOneWinCount++;
+                console.log(playerOneWinCount);
+            } else if (winner === "Player Two") {
+                playerTwoWinCount++;
+            }
+        } //end of incrementWinCount()
+
     }
 
+    //Player One can win, Player Two can win, or it can be a tie
     this.checkForWinner = checkForWinner;
-    function checkForWinner () {
+    function checkForWinner() {
 
         var gameBoard = this.gameBoard;
 
-        function createThreeBoxArrays () {
-            var threeBoxArray = [];
+        //check for a tie, otherwise check for a winner
+        if (moveCount === 9 && winner === null) {
 
-            //TODO(ryan): create function for column and row check
-            //check the rows
-            for (var j = 1; j < 4; j++) {
-                for (var i = 0; i < gameBoard.length; i++) {
-                    if (gameBoard[i].row === j) {
-                        //create row array
-                        threeBoxArray.push(gameBoard[i].value);
-                        if (threeBoxArray.length === 3) {
-                            checkThreeBoxArray(threeBoxArray);
-                            threeBoxArray = [];
+            winner = "Nobody!  It's a cats game.";
+            gameOver = true;
+            return winner;
+
+        } else {
+
+            //checks all row, columns, and diagonals for a winner
+            createThreeBoxArrays();
+            function createThreeBoxArrays() {
+                var threeBoxArray = [];
+
+                createRowsAndCheck();
+                createColumnsAndCheck();
+                createDiagonalsAndCheck();
+
+                //check the rows with checkThreeBoxArray()
+                function createRowsAndCheck () {
+                    for (var j = 1; j < 4; j++) {
+                        for (var i = 0; i < gameBoard.length; i++) {
+                            if (gameBoard[i].row === j) {
+                                //create row array
+                                threeBoxArray.push(gameBoard[i].value);
+                                if (threeBoxArray.length === 3) {
+                                    checkThreeBoxArray(threeBoxArray);
+                                    threeBoxArray = [];
+                                }
+
+                            }
                         }
-
                     }
-                }
-            } //end of row check
+                } //end of row check
 
-            //check the columns
-            for (var p = 1; p < 4; p++) {
-                for (var q = 0; q < gameBoard.length; q++) {
-                    if (gameBoard[q].column === p) {
-                        //create column array
-                        threeBoxArray.push(gameBoard[q].value);
-                        if (threeBoxArray.length === 3) {
-                            checkThreeBoxArray(threeBoxArray);
-                            threeBoxArray = [];
+                //check the columns with checkThreeBoxArray()
+                function createColumnsAndCheck () {
+                    for (var p = 1; p < 4; p++) {
+                        for (var q = 0; q < gameBoard.length; q++) {
+                            if (gameBoard[q].column === p) {
+                                //create column array
+                                threeBoxArray.push(gameBoard[q].value);
+                                if (threeBoxArray.length === 3) {
+                                    checkThreeBoxArray(threeBoxArray);
+                                    threeBoxArray = [];
+                                }
+
+                            }
                         }
-
                     }
-                }
-            } //end of column check
+                } //end of column check
 
-            //TODO(ryan): create function for diagonal check
-            //check the diagonals
-            for (var r = 1; r < 3; r++) {
-                for (var w = 0; w < gameBoard.length; w++) {
-                    if (gameBoard[w].diagonal === r || gameBoard[w].diagonal === 3) {
-                        //create column array
-                        threeBoxArray.push(gameBoard[w].value);
-                        if (threeBoxArray.length === 3) {
-                            checkThreeBoxArray(threeBoxArray);
-                            threeBoxArray = [];
+                //check the diagonals with checkThreeBoxArray()
+                function createDiagonalsAndCheck () {
+                    for (var r = 1; r < 3; r++) {
+                        for (var w = 0; w < gameBoard.length; w++) {
+                            if (gameBoard[w].diagonal === r || gameBoard[w].diagonal === 3) {
+                                //create column array
+                                threeBoxArray.push(gameBoard[w].value);
+                                if (threeBoxArray.length === 3) {
+                                    checkThreeBoxArray(threeBoxArray);
+                                    threeBoxArray = [];
+                                }
+
+                            }
                         }
-
                     }
-                }
-            } //end of diagonal check
+                } //end of diagonal check
 
+                //sets winner and increments either playerOneWinCount or playerTwoWinCount
+                function checkThreeBoxArray(threeBoxArray) {
+                    var boxZero = threeBoxArray[0];
+                    var boxOne = threeBoxArray[1];
+                    var boxTwo = threeBoxArray[2];
+                    if ((boxZero + boxOne + boxTwo) === 3) {
+                        winner = "Player One";
+                    } else if ((boxZero + boxOne + boxTwo) === -3) {
+                        winner = "Player Two";
+                    }
+                } //end of checkThreeBoxArray()
 
-        } //end of threeBoxArray()
+            } //end of threeBoxArray()
 
-        function checkThreeBoxArray (threeBoxArray) {
-            var boxZero = threeBoxArray[0];
-            var boxOne = threeBoxArray[1];
-            var boxTwo = threeBoxArray[2];
-            if ((boxZero + boxOne + boxTwo) === 3) {
-                winner = "playerOne";
-            } else if ((boxZero + boxOne + boxTwo) === -3) {
-                winner = "playerTwo";
-            }
-        } //end of checkThreeBoxArray()
-
-        createThreeBoxArrays();
-        return winner;
+            return winner;
+        }
     }
 
+    //refresh the page
     this.startNewGame = startNewGame;
-    function startNewGame () {
+    function startNewGame() {
+        gameOver = false;
         document.location.reload(true);
     }
 }
