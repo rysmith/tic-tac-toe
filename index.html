@@ -6,30 +6,30 @@
 <link rel="stylesheet" href="styles/main.css"/>
 <link rel="stylesheet" href="styles/normalize.css"/>
 <title>Tic Tac Toe</title>
-<body ng-controller="BoardController as board" class="{{themeSelector}}">
+<body ng-controller="BoardController as board" id="{{themeSelector}}-bg">
 <div id="wrapper">
     <a href="https://github.com/rysmith/tic-tac-toe"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
 
     <div class="row">
         <!-- left column -->
-        <div class="one-half column colOne" id="results">
+        <div class="one-half column colOne" id="{{themeSelector}}-colOne">
 
-            <div class="winner-result">
+            <div class="winner-result {{themeSelector}}-border">
                 <p><i class="fa fa-star"></i> The <strong>winner</strong> is: {{board.checkForWinner()}}</p>
             </div>
 
             <hr/>
-            <select name="Choose a Theme" ng-model="themeSelector">
+            <select name="Choose a Theme" ng-model="themeSelector" class="{{themeSelector}}-border">
                 <option value="">Choose a theme</option>
-                <option value="monterey-bg">Monterey Bay</option>
-                <option value="tahoe-bg">Lake Tahoe</option>
-                <option value="cruz-bg">Santa Cruz</option>
-                <option value="sf-bg">San Francisco</option>
-                <option value="lg-bg">Los Gatos</option>
-                <option value="sunlight-bg">Sunlight</option>
-                <option value="break-bg">Break Off Effect</option>
+                <option value="monterey">Monterey Bay</option>
+                <option value="tahoe">Lake Tahoe</option>
+                <option value="cruz">Santa Cruz</option>
+                <option value="sf">San Francisco</option>
+                <option value="lg">Los Gatos</option>
+                <option value="sunlight">Sunlight</option>
+                <option value="break">Break Off Effect</option>
             </select>
-            <button class="button button-primary" ng-click="board.startNewGame()">Start New Game</button>
+            <button class="button button-primary" id="{{themeSelector}}-btn" ng-click="board.startNewGame()">Start New Game</button>
             <hr/>
 
             <h5><i class="fa fa-info-circle"></i> Instructions</h5>
@@ -40,9 +40,7 @@
         </div> <!-- left column end -->
 
         <!-- right column -->
-        <div class="one-half column ">
-
-            <div class="colTwo">
+        <div class="one-half column colTwo" id="{{themeSelector}}-colTwo">
                 <div class="gameboard" >
                     <div ng-repeat="box in board.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">
                         <div class="box-content">
@@ -50,8 +48,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
         </div> <!-- right column end -->
     </div> <!-- row end -->
 
