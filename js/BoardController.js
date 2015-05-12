@@ -91,7 +91,8 @@ function BoardController() {
     ];
     //end of gameBoard array
 
-    this.alreadyPlayed = null;
+    this.alreadyPlayedAlert = null;
+    this.gameOverAlert = null;
 
     var winner = null;
     var gameOver = false;
@@ -101,8 +102,8 @@ function BoardController() {
     var moveCount = 0;
 
     //track player wins
-    var playerOneWinCount = 0;
-    var playerTwoWinCount = 0;
+    this.playerOneWinCount = 0;
+    this.playerTwoWinCount = 0;
 
     //fires when a user clicks on the game board
     //sets and displays each player's game piece (gameBoard.content)
@@ -113,62 +114,63 @@ function BoardController() {
     //increments player win count
     this.playerMove = playerMove;
     function playerMove(location) {
-        var alreadyPlayed = this.alreadyPlayed;
-        //player can place a game piece if the box is empty
-        if (this.gameBoard[location].value === 0) {
 
-            if (playerOneTurn) {
+        //before allowing play, check for winner
+        if (gameOver) {
 
-                // playerOne's turn
-                this.gameBoard[location].content = 'fa fa-times';
-                this.gameBoard[location].value = 1;
-                playerOneTurn = false;
+            this.gameOverAlert = "The game is over, no play is allowed.  Start a new game.";
 
-                if (this.checkForWinner() === "Player One") {
+        } else {
+                //player can place a game piece if the box is empty
+                if (this.gameBoard[location].value === 0) {
 
-                    //end game in favor of playerOne
-                    console.log(winner + " is the winner");
-                    gameOver = true;
+                    if (playerOneTurn) {
 
-                } else if (this.checkForWinner() === "Player Two") {
+                        // playerOne's turn
+                        this.gameBoard[location].content = 'fa fa-times';
+                        this.gameBoard[location].value = 1;
+                        playerOneTurn = false;
+                        this.alreadyPlayedAlert = null;
 
-                    //end game in favor of player two
-                    console.log(winner + " is the winner");
-                    gameOver = true;
+                    } else {
+
+                        //playerTwo's turn
+                        this.gameBoard[location].content = 'fa fa-circle-o';
+                        this.gameBoard[location].value = -1;
+                        playerOneTurn = true;
+                        this.alreadyPlayedAlert = null;
+
+                    }
+
+                    moveCount++;
+
+                } else {
+
+                    //run if you click on a box that has been played already
+                    this.alreadyPlayedAlert = "This square has been played. Choose a different square.";
 
                 }
 
-            } else {
+            }
+        if (gameOver === false) {
+            //check for a winner
+            if (this.checkForWinner() === "Player One") {
 
-                //playerTwo's turn
-                this.gameBoard[location].content = 'fa fa-circle-o';
-                this.gameBoard[location].value = -1;
-                playerOneTurn = true;
+                //end game in favor of playerOne
+                gameOver = true;
+                this.playerOneWinCount++;
+                winner = null;
+
+            } else if (this.checkForWinner() === "Player Two") {
+
+                //end game in favor of player two
+                gameOver = true;
+                this.playerTwoWinCount++;
+                winner = null;
 
             }
-
-            moveCount++;
-
-        } else {
-
-            //run if you click on a box that has been played already
-            alreadyPlayed = "This square has been played.  Please choose a different square.";
-            console.log(alreadyPlayed);
-            return alreadyPlayed;
 
         }
-
-        //checks to see who won and adds to that player's win total
-        incrementWinCount(winner);
-        function incrementWinCount (winner) {
-            if (winner === "Player One") {
-                playerOneWinCount++;
-                console.log(playerOneWinCount);
-            } else if (winner === "Player Two") {
-                playerTwoWinCount++;
-            }
-        } //end of incrementWinCount()
-
     }
 
     //Player One can win, Player Two can win, or it can be a tie
@@ -273,6 +275,9 @@ function BoardController() {
             this.gameBoard[i].value = 0;
         }
         gameOver = false;
+        this.gameOverAlert = null;
         winner = null;
+        this.alreadyPlayedAlert = null;
+        moveCount = 0;
     }
 }

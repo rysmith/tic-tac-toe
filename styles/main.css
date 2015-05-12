@@ -14,6 +14,14 @@ body {
     padding-right: 120px;
 }
 
+#options {
+    margin-top:30px;
+}
+
+.button-primary {
+    margin-right: 10px;
+}
+
 .box-content {
     padding-top: 25px;
 }
@@ -190,19 +198,16 @@ body {
 }
 /*end tahoe theme*/
 
-.button-primary {
-    float:right;
-}
-
 .winner-result {
     border: 1px solid #0FA0CE;
     border-radius: 12px;
     padding-left: 20px;
     padding-top: 20px;
+    margin-bottom: 30px;
 }
 
 .row {
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 .colOne {
