@@ -267,7 +267,11 @@ function BoardController() {
     //refresh the page
     this.startNewGame = startNewGame;
     function startNewGame() {
+        //move through each gameboard object and reset content to null and value to 0
+        for (var i = 0; i < this.gameBoard.length; i++) {
+            this.gameBoard[i].content = null;
+            this.gameBoard[i].value = 0;
+        }
         gameOver = false;
-        document.location.reload(true);
     }
 }
