@@ -273,5 +273,6 @@ function BoardController() {
             this.gameBoard[i].value = 0;
         }
         gameOver = false;
+        winner = null;
     }
 }
