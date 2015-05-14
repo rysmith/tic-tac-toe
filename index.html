@@ -28,13 +28,13 @@
 
             <div class="winner-result {{themeSelector}}-border">
                 <p>
-                    <i class="fa fa-trophy"></i> The <strong>winner</strong> of the current game is: {{board.checkForWinner()}} <br>
-                    <i class="fa fa-times"></i> <strong>Player One</strong> wins: {{board.playerOneWinCount.$value}} <br>
-                    <i class="fa fa-circle-o"></i> <strong>Player Two</strong> wins: {{board.playerTwoWinCount.$value}}
+                    <i class="fa fa-trophy"></i> The <strong>winner</strong> of the current game is: {{board.game.winner}} <br>
+                    <i class="fa fa-times"></i> <strong>Player One</strong> wins: {{board.game.playerOneWinCount}} <br>
+                    <i class="fa fa-circle-o"></i> <strong>Player Two</strong> wins: {{board.game.playerTwoWinCount}}
                 </p>
 
             </div>
-            <p><i class="fa fa-flag"></i> Game Alerts: {{board.alreadyPlayedAlert.$value}}{{board.gameOverAlert.$value}}</p>
+            <p><i class="fa fa-flag"></i> Game Alerts: {{board.game.alreadyPlayedAlert}}{{board.game.gameOverAlert}}</p>
             <hr/>
 
 
@@ -48,7 +48,7 @@
         <!-- right column -->
         <div class="one-half column colTwo" id="{{themeSelector}}-colTwo">
                 <div class="gameboard" >
-                    <div ng-repeat="box in board.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">
+                    <div ng-repeat="box in board.game.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">
                         <div class="box-content">
                             <h1><i class="{{box.content}}"></i></h1>
                         </div>

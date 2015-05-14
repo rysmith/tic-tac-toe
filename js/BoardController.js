@@ -1,31 +1,15 @@
 ticTacToeApp
     .controller("BoardController", BoardController);
 
-BoardController.$inject = ["$firebaseArray", "$firebaseObject"];
+BoardController.$inject = ["$firebaseObject"];
 
-function BoardController($firebaseArray, $firebaseObject) {
-
+function BoardController($firebaseObject) {
 
     //firebase
     var self = this;
     var ref = new Firebase("https://glowing-torch-9844.firebaseio.com");
-    self.gameBoard = $firebaseArray(ref.child("game/gameBoard"));
-    self.gameOver = $firebaseObject(ref.child("game/gameOver"));
-    self.alreadyPlayedAlert = $firebaseObject(ref.child("game/alreadyPlayedAlert"));
-    self.gameOverAlert = $firebaseObject(ref.child("game/gameOverAlert"));
-    self.moveCount = $firebaseObject(ref.child("game/moveCount"));
-    self.playerOneTurn = $firebaseObject(ref.child("game/playerOneTurn"));
-    self.playerOneWinCount = $firebaseObject(ref.child("game/playerOneWinCount"));
-    self.playerTwoWinCount = $firebaseObject(ref.child("game/playerTwoWinCount"));
-    self.winner = $firebaseObject(ref.child("game/winner"));
-
-    console.log(self.gameBoard);
-
-    self.gameBoard.$loaded().then(function(gameBoard) {
-        console.log(gameBoard.length);
-    });
-
-
+    self.game = $firebaseObject(ref.child("game"));
+    
     //fires when a user clicks on the game board
     //sets and displays each player's game piece (gameBoard.content)
     //tracks where a game piece has been played (gameBoard.value)
@@ -33,178 +17,194 @@ function BoardController($firebaseArray, $firebaseObject) {
     //toggles playerOneTurn
     //checks if either player has won via checkForWinner()
     //increments player win count
-    self.playerMove = playerMove;
-    function playerMove(location) {
+    //self.playerMove = playerMove;
+    self.playerMove = function playerMove(location) {
 
         //before allowing play, check for winner
-        if (self.gameOver.$value) {
+        if (self.game.gameOver) {
 
-            self.gameOverAlert.$value = "The game is over, no play is allowed.  Start a new game.";
+            self.game.gameOverAlert = "The game is over, no play is allowed.  Start a new game.";
+            self.game.$save();
 
         } else {
 
                 //player can place a game piece if the box is empty
-                if (self.gameBoard[location].value === 0) {
+                if (self.game.gameBoard[location].value === 0) {
 
-                    if (self.playerOneTurn) {
+                    if (self.game.playerOneTurn) {
 
                         // playerOne's turn
-                        self.gameBoard[location].content = 'fa fa-times';
-                        self.gameBoard[location].value = 1;
-                        self.playerOneTurn = false;
-                        self.alreadyPlayedAlert.$value = " ";
-                        debugger;
-
+                        self.game.gameBoard[location].content = 'fa fa-times';
+                        self.game.gameBoard[location].value = 1;
+                        self.game.playerOneTurn = false;
+                        self.game.alreadyPlayedAlert = " ";
+                        self.game.$save();
 
                     } else {
 
                         //playerTwo's turn
-                        self.gameBoard[location].content = 'fa fa-circle-o';
-                        self.gameBoard[location].value = -1;
-                        self.playerOneTurn = true;
-                        self.alreadyPlayedAlert.$value = " ";
-                        debugger;
+                        self.game.gameBoard[location].content = 'fa fa-circle-o';
+                        self.game.gameBoard[location].value = -1;
+                        self.game.playerOneTurn = true;
+                        self.game.alreadyPlayedAlert = " ";
+                        self.game.$save();
 
                     }
 
-                    self.moveCount.$value++;
+                    self.game.moveCount++;
+                    self.game.$save();
 
                 } else {
 
                     //run if you click on a box that has been played already
-                    self.alreadyPlayedAlert.$value = "This square has been played. Choose a different square.";
-                    debugger;
+                    self.game.alreadyPlayedAlert = "This square has been played. Choose a different square.";
+                    self.game.$save();
+
                 }
 
             }
-    //    if (self.gameOver.$value === false) {
-    //        //check for a winner
-    //        if (self.checkForWinner() === "Player One") {
-    //
-    //            //end game in favor of playerOne
-    //            self.gameOver.$value = true;
-    //            self.playerOneWinCount.$value++;
-    //            winner = " ";
-    //            debugger;
-    //
-    //        } else if (self.checkForWinner() === "Player Two") {
-    //
-    //            //end game in favor of player two
-    //            self.gameOver.$value = true;
-    //            self.playerTwoWinCount.$value++;
-    //            self.winner.$value = " ";
-    //            debugger;
-    //
-    //        }
-    //    debugger;
-    //    }
-    } //end of playerMove()
-    //
-    ////Player One can win, Player Two can win, or it can be a tie
-    //this.checkForWinner = checkForWinner;
-    //function checkForWinner() {
-    //
-    //    //check for a tie, otherwise check for a winner
-    //    if (self.moveCount.$value === 9 && self.winner.$value === " ") {
-    //
-    //        self.winner.$value = "Nobody!  It's a cats game.";
-    //        self.gameOver.$value = true;
-    //        return self.winner.$value;
-    //
-    //    } else {
-    //
-    //        //checks all row, columns, and diagonals for a winner
-    //        createThreeBoxArrays();
-    //        function createThreeBoxArrays() {
-    //            var threeBoxArray = [];
-    //
-    //            createRowsAndCheck();
-    //            createColumnsAndCheck();
-    //            createDiagonalsAndCheck();
-    //
-    //            //check the rows with checkThreeBoxArray()
-    //            function createRowsAndCheck () {
-    //                for (var j = 1; j < 4; j++) {
-    //                    for (var i = 0; i < self.gameBoard.length; i++) {
-    //                        if (self.gameBoard[i].row === j) {
-    //                            //create row array
-    //                            threeBoxArray.push(gameBoard[i].value);
-    //                            if (threeBoxArray.length === 3) {
-    //                                checkThreeBoxArray(threeBoxArray);
-    //                                threeBoxArray = [];
-    //                            }
-    //
-    //                        }
-    //                    }
-    //                }
-    //            } //end of row check
-    //
-    //            //check the columns with checkThreeBoxArray()
-    //            function createColumnsAndCheck () {
-    //                for (var p = 1; p < 4; p++) {
-    //                    for (var q = 0; q < gameBoard.length; q++) {
-    //                        if (gameBoard[q].column === p) {
-    //                            //create column array
-    //                            threeBoxArray.push(gameBoard[q].value);
-    //                            if (threeBoxArray.length === 3) {
-    //                                checkThreeBoxArray(threeBoxArray);
-    //                                threeBoxArray = [];
-    //                            }
-    //
-    //                        }
-    //                    }
-    //                }
-    //            } //end of column check
-    //
-    //            //check the diagonals with checkThreeBoxArray()
-    //            function createDiagonalsAndCheck () {
-    //                for (var r = 1; r < 3; r++) {
-    //                    for (var w = 0; w < gameBoard.length; w++) {
-    //                        if (gameBoard[w].diagonal === r || gameBoard[w].diagonal === 3) {
-    //                            //create column array
-    //                            threeBoxArray.push(gameBoard[w].value);
-    //                            if (threeBoxArray.length === 3) {
-    //                                checkThreeBoxArray(threeBoxArray);
-    //                                threeBoxArray = [];
-    //                            }
-    //
-    //                        }
-    //                    }
-    //                }
-    //            } //end of diagonal check
-    //
-    //            //sets winner and increments either playerOneWinCount or playerTwoWinCount
-    //            function checkThreeBoxArray(threeBoxArray) {
-    //                var boxZero = threeBoxArray[0];
-    //                var boxOne = threeBoxArray[1];
-    //                var boxTwo = threeBoxArray[2];
-    //                if ((boxZero + boxOne + boxTwo) === 3) {
-    //                    winner = "Player One";
-    //                } else if ((boxZero + boxOne + boxTwo) === -3) {
-    //                    winner = "Player Two";
-    //                }
-    //            } //end of checkThreeBoxArray()
-    //
-    //        } //end of threeBoxArray()
-    //
-    //        return winner;
-    //    }
-    //}
+        if (self.game.gameOver === false) {
+            //check for a winner
+            if (self.game.winner === "Player One") {
 
-    ////refresh the page
-    //this.startNewGame = startNewGame;
-    //function startNewGame() {
-    //    //move through each gameboard object and reset content to null and value to 0
-    //    for (var i = 0; i < this.gameBoard.length; i++) {
-    //        this.gameBoard[i].content = null;
-    //        this.gameBoard[i].value = " ";
-    //    }
-    //    gameOver = false;
-    //    this.gameOverAlert = null;
-    //    winner = null;
-    //    this.alreadyPlayedAlert = null;
-    //    moveCount = 0;
-    //    //TODO(ryan): make sure to save this with self.gameBoard.$save();
+                //end game in favor of playerOne
+                self.game.gameOver = true;
+                self.game.playerOneWinCount++;
+                self.game.winner = " ";
+                self.game.$save();
+
+            } else if (self.game.winner === "Player Two") {
+
+                //end game in favor of player two
+                self.game.gameOver = true;
+                self.game.playerTwoWinCount++;
+                self.game.winner = " ";
+                self.game.$save();
+
+            }
+
+        }
+    } //end of playerMove()
+
+    //Player One can win, Player Two can win, or it can be a tie
+    //self.checkForWinner = checkForWinner;
+    self.checkForWinner = function () {
+
+        //checks all row, columns, and diagonals for a winner
+        createThreeBoxArrays();
+        function createThreeBoxArrays() {
+            var threeBoxArray = [];
+
+            createRowsAndCheck();
+            createColumnsAndCheck();
+            createDiagonalsAndCheck();
+
+            //check the rows with checkThreeBoxArray()
+            function createRowsAndCheck () {
+                for (var j = 1; j < 4; j++) {
+                    for (var i = 0; i < 9; i++) {
+                        if (self.game.gameBoard[i].row === j) {
+                            //create row array
+                            threeBoxArray.push(self.game.gameBoard[i].value);
+                            console.log("row check: " + threeBoxArray);
+                            if (threeBoxArray.length === 3) {
+                                checkThreeBoxArray(threeBoxArray);
+                                threeBoxArray = [];
+                            }
+                        }
+                    }
+                }
+            } //end of row check
+
+            //check the columns with checkThreeBoxArray()
+            function createColumnsAndCheck () {
+                for (var p = 1; p < 4; p++) {
+                    for (var q = 0; q < 9; q++) {
+                        if (self.game.gameBoard[q].column === p) {
+                            //create column array
+                            threeBoxArray.push(self.game.gameBoard[q].value);
+                            console.log("column check: " + threeBoxArray);
+                            if (threeBoxArray.length === 3) {
+                                checkThreeBoxArray(threeBoxArray);
+                                threeBoxArray = [];
+                            }
+
+                        }
+                    }
+                }
+            } //end of column check
+
+            //check the diagonals with checkThreeBoxArray()
+            function createDiagonalsAndCheck () {
+                for (var r = 1; r < 3; r++) {
+                    for (var w = 0; w < 9; w++) {
+                        if (self.game.gameBoard[w].diagonal === r || self.game.gameBoard[w].diagonal === 3) {
+                            //create column array
+                            threeBoxArray.push(self.game.gameBoard[w].value);
+                            console.log("diagonal check: " + threeBoxArray);
+                            if (threeBoxArray.length === 3) {
+                                checkThreeBoxArray(threeBoxArray);
+                                threeBoxArray = [];
+                            }
+
+                        }
+                    }
+                }
+            } //end of diagonal check
+
+            //sets winner and increments either playerOneWinCount or playerTwoWinCount
+            function checkThreeBoxArray(threeBoxArray) {
+                var boxZero = threeBoxArray[0];
+                var boxOne = threeBoxArray[1];
+                var boxTwo = threeBoxArray[2];
+                if ((boxZero + boxOne + boxTwo) === 3) {
+                    self.game.winner = "Player One";
+                    self.game.playerOneWinCount++
+                    self.game.$save();
+                } else if ((boxZero + boxOne + boxTwo) === -3) {
+                    self.game.winner = "Player Two";
+                    self.game.playerTwoWinCount++
+                    self.game.$save();
+                }
+            } //end of checkThreeBoxArray()
+
+        } //end of threeBoxArray()
+        //check for a tie, otherwise check for a winner
+        if (self.game.moveCount === 9 && self.game.winner === " ") {
+
+            self.game.winner = "Nobody!  It's a cats game.";
+            self.game.gameOver = true;
+            self.game.$save();
+            console.log(self.game.winner);
+            return self.game.winner;
+
+
+        }
+
+        self.game.$save();
+        console.log(self.game.winner);
+
+        return self.game.winner;
+
+    };
+
+    //refresh the page
+    self.startNewGame = startNewGame;
+    function startNewGame() {
+        //move through each gameboard object and reset content to " " and value to 0
+        for (var i = 0; i < 9; i++) {
+            self.game.gameBoard[i].content = " ";
+            self.game.gameBoard[i].value = 0;
+        }
+        self.game.gameOver = false;
+        self.game.gameOverAlert = " ";
+        self.game.winner = " ";
+        self.game.alreadyPlayedAlert = " ";
+        self.game.moveCount = 0;
+        self.game.playerOneTurn = true;
+        self.game.$save();
+
+    }
 
     //TESTING AREA
     //self.playerMove = playerMove;
@@ -232,4 +232,9 @@ function BoardController($firebaseArray, $firebaseObject) {
     //self.gameOver = $firebaseObject(ref.child("game/gameOver"));
     //console.log(self.gameBoard);
     //console.log(self.gameOver);
+
+    //self.game.$loaded().then(function(game) {
+    //    console.log(game);
+    //    self.gameBoard = game.gameBoard;
+    //});
 }
