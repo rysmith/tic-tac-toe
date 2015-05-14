@@ -5,11 +5,12 @@ BoardController.$inject = ["$firebaseObject"];
 
 function BoardController($firebaseObject) {
 
-    //firebase
     var self = this;
+
+    //firebase
     var ref = new Firebase("https://glowing-torch-9844.firebaseio.com");
     self.game = $firebaseObject(ref.child("game"));
-    
+
     //fires when a user clicks on the game board
     //sets and displays each player's game piece (gameBoard.content)
     //tracks where a game piece has been played (gameBoard.value)
@@ -20,12 +21,13 @@ function BoardController($firebaseObject) {
     //self.playerMove = playerMove;
     self.playerMove = function playerMove(location) {
 
-        //before allowing play, check for winner
+        //before allowing play, check the status of the game
         if (self.game.gameOver) {
 
             self.game.gameOverAlert = "The game is over, no play is allowed.  Start a new game.";
             self.game.$save();
 
+            //if the game is not over, then allow a player to make a move
         } else {
 
                 //player can place a game piece if the box is empty
@@ -51,6 +53,7 @@ function BoardController($firebaseObject) {
 
                     }
 
+                    //once a player has moved, increment the move count
                     self.game.moveCount++;
                     self.game.$save();
 
@@ -62,32 +65,28 @@ function BoardController($firebaseObject) {
 
                 }
 
-            }
-        if (self.game.gameOver === false) {
-            //check for a winner
-            if (self.game.winner === "Player One") {
+                //if winner then increment playerWinCount and set gameOver to true
+                if (self.game.winner === "Player One") {
 
-                //end game in favor of playerOne
-                self.game.gameOver = true;
-                self.game.playerOneWinCount++;
-                self.game.winner = " ";
-                self.game.$save();
+                    //end game in favor of playerOne
+                    self.game.playerOneWinCount++;
+                    self.game.winner = " ";
+                    self.game.$save();
 
-            } else if (self.game.winner === "Player Two") {
+                } else if (self.game.winner === "Player Two") {
 
-                //end game in favor of player two
-                self.game.gameOver = true;
-                self.game.playerTwoWinCount++;
-                self.game.winner = " ";
-                self.game.$save();
+                    //end game in favor of player two
+                    self.game.playerTwoWinCount++;
+                    self.game.winner = " ";
+                    self.game.$save();
+
+                }
 
             }
 
-        }
-    } //end of playerMove()
+        }; //end of playerMove
 
     //Player One can win, Player Two can win, or it can be a tie
-    //self.checkForWinner = checkForWinner;
     self.checkForWinner = function () {
 
         //checks all row, columns, and diagonals for a winner
@@ -106,7 +105,6 @@ function BoardController($firebaseObject) {
                         if (self.game.gameBoard[i].row === j) {
                             //create row array
                             threeBoxArray.push(self.game.gameBoard[i].value);
-                            console.log("row check: " + threeBoxArray);
                             if (threeBoxArray.length === 3) {
                                 checkThreeBoxArray(threeBoxArray);
                                 threeBoxArray = [];
@@ -123,7 +121,6 @@ function BoardController($firebaseObject) {
                         if (self.game.gameBoard[q].column === p) {
                             //create column array
                             threeBoxArray.push(self.game.gameBoard[q].value);
-                            console.log("column check: " + threeBoxArray);
                             if (threeBoxArray.length === 3) {
                                 checkThreeBoxArray(threeBoxArray);
                                 threeBoxArray = [];
@@ -141,7 +138,6 @@ function BoardController($firebaseObject) {
                         if (self.game.gameBoard[w].diagonal === r || self.game.gameBoard[w].diagonal === 3) {
                             //create column array
                             threeBoxArray.push(self.game.gameBoard[w].value);
-                            console.log("diagonal check: " + threeBoxArray);
                             if (threeBoxArray.length === 3) {
                                 checkThreeBoxArray(threeBoxArray);
                                 threeBoxArray = [];
@@ -152,6 +148,7 @@ function BoardController($firebaseObject) {
                 }
             } //end of diagonal check
 
+            //player win count is set twice!!!!!!
             //sets winner and increments either playerOneWinCount or playerTwoWinCount
             function checkThreeBoxArray(threeBoxArray) {
                 var boxZero = threeBoxArray[0];
@@ -159,23 +156,23 @@ function BoardController($firebaseObject) {
                 var boxTwo = threeBoxArray[2];
                 if ((boxZero + boxOne + boxTwo) === 3) {
                     self.game.winner = "Player One";
-                    self.game.playerOneWinCount++
+                    self.game.gameOver = true;
                     self.game.$save();
                 } else if ((boxZero + boxOne + boxTwo) === -3) {
                     self.game.winner = "Player Two";
-                    self.game.playerTwoWinCount++
+                    self.game.gameOver = true;
                     self.game.$save();
                 }
             } //end of checkThreeBoxArray()
 
         } //end of threeBoxArray()
+
         //check for a tie, otherwise check for a winner
         if (self.game.moveCount === 9 && self.game.winner === " ") {
 
             self.game.winner = "Nobody!  It's a cats game.";
             self.game.gameOver = true;
             self.game.$save();
-            console.log(self.game.winner);
             return self.game.winner;
 
 
@@ -186,9 +183,9 @@ function BoardController($firebaseObject) {
 
         return self.game.winner;
 
-    };
+    }; //end of checkForWinner
 
-    //refresh the page
+    //reset everything except playerWinCount
     self.startNewGame = startNewGame;
     function startNewGame() {
         //move through each gameboard object and reset content to " " and value to 0
@@ -206,35 +203,4 @@ function BoardController($firebaseObject) {
 
     }
 
-    //TESTING AREA
-    //self.playerMove = playerMove;
-    //function playerMove(location) {
-    //
-    //    self.gameBoard[location].content = 'fa fa-times';
-    //    self.gameBoard[location].value = 1;
-    //    self.gameBoard.$save();
-    //    console.log(self.gameBoard);
-    //
-    //}
-    //self.game.gameOver = "some different string";
-    //self.game.$save();
-    //console.log(self.game);
-    ////self.gameBoard[0].value = "x";
-    //self.gameBoard.$save();
-    //console.log(self.gameBoard);
-
-    //this will get the value of the gameOver key:value pair
-    //self.gameOver = $firebaseObject(ref.child("game/gameOver"));
-    //self.gameOver.$loaded().then(function(gameOver) {
-    //    console.log(gameOver.$value);
-    //});
-
-    //self.gameOver = $firebaseObject(ref.child("game/gameOver"));
-    //console.log(self.gameBoard);
-    //console.log(self.gameOver);
-
-    //self.game.$loaded().then(function(game) {
-    //    console.log(game);
-    //    self.gameBoard = game.gameBoard;
-    //});
 }
