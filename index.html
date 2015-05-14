@@ -8,8 +8,8 @@
 <title>Tic Tac Toe</title>
 <body ng-controller="BoardController as board" id="{{themeSelector}}-bg">
 <div id="wrapper">
+    <a href="https://github.com/rysmith/tic-tac-toe"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
     <div id="options">
-        <a href="https://github.com/rysmith/tic-tac-toe"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
         <button class="button button-primary" id="{{themeSelector}}-btn" ng-click="board.startNewGame()">Start New Game</button>
         <select name="Choose a Theme" ng-model="themeSelector" class="{{themeSelector}}-border">
             <option value="">Choose a theme</option>
@@ -28,15 +28,15 @@
 
             <div class="winner-result {{themeSelector}}-border">
                 <p>
-                    <i class="fa fa-trophy"></i> The <strong>winner</strong> of the current game is: {{board.checkForWinner()}} <br>
-                    <i class="fa fa-times"></i> <strong>Player One</strong> wins: {{board.playerOneWinCount}} <br>
-                    <i class="fa fa-circle-o"></i> <strong>Player Two</strong> wins: {{board.playerTwoWinCount}}
+                    <i class="fa fa-trophy"></i> The <strong>winner</strong> of the current game is: {{board.game.winner}} <br>
+                    <i class="fa fa-times"></i> <strong>Player One</strong> wins: {{board.game.playerOneWinCount}} <br>
+                    <i class="fa fa-circle-o"></i> <strong>Player Two</strong> wins: {{board.game.playerTwoWinCount}}
                 </p>
-
             </div>
-            <p><i class="fa fa-flag"></i> Game Alerts: {{board.alreadyPlayedAlert}}{{board.gameOverAlert}}</p>
-            <hr/>
 
+            <p><i class="fa fa-flag"></i> Game Alerts: {{board.game.alreadyPlayedAlert}}{{board.game.gameOverAlert}}</p>
+
+            <hr/>
 
             <h5><i class="fa fa-info-circle"></i> Instructions</h5>
             <p>
@@ -47,21 +47,23 @@
 
         <!-- right column -->
         <div class="one-half column colTwo" id="{{themeSelector}}-colTwo">
-                <div class="gameboard" >
-                    <div ng-repeat="box in board.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">
-                        <div class="box-content">
-                            <h1><i class="{{box.content}}"></i></h1>
-                        </div>
+            <div class="gameboard" >
+                <div ng-repeat="box in board.game.gameBoard" ng-class="box.class" ng-click="board.playerMove($index); board.checkForWinner()">
+                    <div class="box-content">
+                        <h1><i class="{{box.content}}"></i></h1>
                     </div>
                 </div>
+            </div>
         </div> <!-- right column end -->
     </div> <!-- row end -->
 
-    <!-- TODO(ryan):add ng-cloak to prevent un-rendered angular expressions from flashing on page load -->
     <script type="text/javascript" src="js/angular.js"></script>
+    <script type="text/javascript" src="js/firebase.js"></script>
+    <script type="text/javascript" src="js/angularfire.js"></script>
     <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>-->
     <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/BoardController.js"></script>
+</div>
 </body>
 
 </html>
