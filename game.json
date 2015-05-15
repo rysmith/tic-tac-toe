@@ -1,0 +1,96 @@
+{
+  "game": {
+    "gameBoard": [
+      {
+        "location": "topLeft",
+        "row": 1,
+        "column": 1,
+        "diagonal": 1,
+        "content": " ",
+        "value": 0,
+        "class": "first-row first-col"
+      },
+      {
+        "location": "topMiddle",
+        "row": 1,
+        "column": 2,
+        "diagonal": 0,
+        "content": " ",
+        "value": 0,
+        "class": "first-row second-col"
+      },
+      {
+        "location": "topRight",
+        "row": 1,
+        "column": 3,
+        "diagonal": 2,
+        "content": " ",
+        "value": 0,
+        "class": "first-row third-col"
+      },
+      {
+        "location": "centerLeft",
+        "row": 2,
+        "column": 1,
+        "diagonal": 0,
+        "content": " ",
+        "value": 0,
+        "class": "second-row first-col"
+      },
+      {
+        "location": "centerMiddle",
+        "row": 2,
+        "column": 2,
+        "diagonal": 3,
+        "content": " ",
+        "value": 0,
+        "class": "second-row second-col"
+      },
+      {
+        "location": "centerRight",
+        "row": 2,
+        "column": 3,
+        "diagonal": 0,
+        "content": " ",
+        "value": 0,
+        "class": "second-row third-col"
+      },
+      {
+        "location": "bottomLeft",
+        "row": 3,
+        "column": 1,
+        "diagonal": 2,
+        "content": " ",
+        "value": 0,
+        "class": "third-row first-col"
+      },
+      {
+        "location": "bottomMiddle",
+        "row": 3,
+        "column": 2,
+        "diagonal": 0,
+        "content": " ",
+        "value": 0,
+        "class": "third-row second-col"
+      },
+      {
+        "location": "bottomRight",
+        "row": 3,
+        "column": 3,
+        "diagonal": 1,
+        "content": " ",
+        "value": 0,
+        "class": "third-row third-col"
+      }
+    ],
+    "winner": " ",
+    "playerOneWinCount": 0,
+    "playerTwoWinCount": 0,
+    "playerOneTurn": true,
+    "moveCount": 0,
+    "gameOver": false,
+    "alreadyPlayedAlert": " ",
+    "gameOverAlert": " "
+  }
+
+}
