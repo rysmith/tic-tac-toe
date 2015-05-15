@@ -5,19 +5,14 @@ BoardController.$inject = ["$firebaseObject"];
 
 function BoardController($firebaseObject) {
 
+    //tie 'this' to BoardController
     var self = this;
 
-    //firebase hookup
+    //Firebase hookup
     var ref = new Firebase("https://glowing-torch-9844.firebaseio.com");
     self.game = $firebaseObject(ref.child("game"));
 
-    //fires when a user clicks on the game board
-    //sets and displays each player's game piece (gameBoard.content)
-    //tracks where a game piece has been played (gameBoard.value)
-    //increments moveCount
-    //toggles playerOneTurn
-    //checks if either player has won via checkForWinner()
-    //increments player win count
+    //sets gameBoard.content, gameBoard.value, moveCount, playerOneTurn, playerWinCount
     self.playerMove = function playerMove(location) {
 
         //before allowing play, check the status of the game
@@ -68,7 +63,7 @@ function BoardController($firebaseObject) {
 
                 } else {
 
-                    //run if you click on a box that has been played already
+                    //alert if the box  has been played already
                     self.game.alreadyPlayedAlert = "This square has been played. Choose a different square.";
                     self.game.$save();
 
@@ -76,6 +71,7 @@ function BoardController($firebaseObject) {
 
             }
 
+        //increment playerWinCount
         if (self.game.gameOver === false) {
             //check for a winner
             if (self.checkForWinner() === "Player One") {
@@ -96,7 +92,7 @@ function BoardController($firebaseObject) {
         }
         }; //end of playerMove
 
-    //playerOne can win, Player Two can win, or it can be a tie
+    //playerOne can win, playerTwo can win, or it can be a tie (cats) game
     self.checkForWinner = function () {
 
         //checks all row, columns, and diagonals for a winner
@@ -198,24 +194,13 @@ function BoardController($firebaseObject) {
         self.game.playerOneTurn = true;
         self.game.$save();
 
-    }
+    } //end of startNewGame
 
-}
-
-//if winner then increment playerWinCount and set gameOver to true
-if (self.game.winner === "Player One") {
-
-    //end game in favor of playerOne
-    self.game.playerOneWinCount++;
-    self.game.winner = " ";
-    self.game.$save();
-
-} else if (self.game.winner === "Player Two") {
-
-    //end game in favor of player two
-    self.game.playerTwoWinCount++;
-    self.game.winner = " ";
-    self.game.$save();
-
+    self.clearAllWins = clearAllWins;
+    function clearAllWins () {
+        self.game.playerOneWinCount = 0;
+        self.game.playerTwoWinCount = 0;
+        self.game.$save();
+    }//end of clearAllWins
 
 }

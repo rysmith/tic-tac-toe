@@ -9,9 +9,13 @@ body {
     background-size: cover;
 }
 
+select {
+    float:right;
+}
+
 #wrapper {
     padding-left: 150px;
-    padding-right: 120px;
+    padding-right: 150px;
 }
 
 #options {
@@ -36,6 +40,26 @@ body {
     padding: 30px;
     opacity: .95;
     border: 5px solid #0FA0CE;
+
+}
+
+@media screen and (max-width: 1103px) {
+    .instructions {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width: 1103px) {
+    .colOne {
+        margin-left:30px !important;
+    }
+}
+
+@media screen and (max-width: 1103px) {
+    .btn-left {
+        margin-left:30px !important;
+    }
 }
 
 .colTwo {
