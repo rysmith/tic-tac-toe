@@ -30,186 +30,6 @@ body {
     font-size: 50px;
 }
 
-/*monterey Theme*/
-#monterey-bg {
-    background: url(../img/20101018_093546.jpg) no-repeat center center fixed;
-}
-
-#monterey-btn {
-    background-color: #3C273E;
-    border: 1px solid #3C273E;
-}
-
-#monterey-colOne {
-    border: 5px solid #3C273E;
-}
-
-#monterey-colTwo {
-    background-color: #3C273E;
-}
-
-.monterey-border {
-    border: 1px solid #3C273E !important;
-}
-
-/*monterey theme end*/
-
-/*sf theme*/
-#sf-bg {
-    background: url(../img/IMG_5140.JPG) no-repeat center center fixed;
-}
-
-#sf-btn {
-    background-color: #A90000;
-    border: 1px solid #A90000;
-}
-
-#sf-colOne {
-    border: 5px solid #A90000;
-}
-
-#sf-colTwo {
-    background-color: #A90000;
-}
-
-.sf-border {
-    border: 1px solid #A90000 !important;
-}
-
-/*sf theme end*/
-
-/*los gatos theme*/
-#lg-bg {
-    background: url(../img/20100322_084230.jpg) no-repeat center center fixed;
-}
-
-#lg-btn {
-    background-color: #784444;
-    border: 1px solid #784444;
-}
-
-#lg-colOne {
-    border: 5px solid #784444;
-}
-
-#lg-colTwo {
-    background-color: #784444;
-}
-
-.lg-border {
-    border: 1px solid #784444 !important;
-}
-/*los gatos theme end*/
-
-/*break off theme*/
-#break-bg {
-    background: url(../img/1280px-Brian_Shul_in_the_cockpit_of_the_SR-71_Blackbird.jpg) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
-#break-btn {
-    background-color: #c68519;
-    border: 1px solid #c68519;
-}
-
-#break-colOne {
-    border: 5px solid #c68519;
-}
-
-#break-colTwo {
-    background-color: #c68519;
-}
-
-.break-border {
-    border: 1px solid #c68519 !important;
-}
-/*end break off theme*/
-
-/*sunlight theme*/
-#sunlight-bg {
-    background: url(../img/20100520_152935.jpg) no-repeat center center fixed;
-}
-
-#sunlight-btn {
-    background-color: gold;
-    border: 1px solid gold;
-}
-
-#sunlight-colOne {
-    border: 5px solid gold;
-}
-
-#sunlight-colTwo {
-    background-color: gold;
-}
-
-.sunlight-border {
-    border: 1px solid gold !important;
-}
-/*sunlight theme end*/
-
-/*tahoe theme*/
-#tahoe-bg {
-    background: url(../img/IMG_5298.JPG) no-repeat center center fixed;
-}
-
-#tahoe-btn {
-    background-color: #8096C0;
-    border: 1px solid #8096C0;
-}
-
-#tahoe-colOne {
-    border: 5px solid #8096C0;
-}
-
-#tahoe-colTwo {
-    background-color: #8096C0;
-}
-
-.tahoe-border {
-    border: 1px solid #8096C0 !important;
-}
-/*end tahoe theme*/
-
-
-/*santa cruz theme*/
-#cruz-bg {
-    background: url(../img/IMG_0207_small.JPG) no-repeat center center fixed;
-}
-
-#cruz-btn {
-    background-color: black;
-    border: 1px solid black;
-}
-
-#cruz-colOne {
-    border: 5px solid black;
-}
-
-#cruz-colTwo {
-    background-color: black;
-}
-
-.cruz-border {
-    border: 1px solid black !important;
-}
-/*end tahoe theme*/
-
-.winner-result {
-    border: 1px solid #0FA0CE;
-    border-radius: 12px;
-    padding-left: 20px;
-    padding-top: 20px;
-    margin-bottom: 30px;
-}
-
-.row {
-    margin-top: 20px;
-}
-
 .colOne {
     background-color: white;
     border-radius: 20px;
@@ -221,9 +41,12 @@ body {
 .colTwo {
     background-color: #0FA0CE;
     border-radius: 20px;
-    padding-left: 75px;
     opacity: .88;
     border: 5px solid white;
+    overflow: auto;
+    min-width: 400px;
+    padding-top: 65px;
+    padding-bottom: 65px;
 }
 
 .gameboard {
@@ -234,10 +57,23 @@ body {
     background-color: white;
     border-radius: 30px;
     text-align: center;
+    margin: 0 auto;
 }
 
 .gameboard:hover {
     cursor: pointer;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+.winner-result {
+    border: 1px solid #0FA0CE;
+    border-radius: 12px;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 30px;
 }
 
 .first-row {
@@ -279,3 +115,163 @@ body {
     width: 32.9%;
     float: left;
 }
+/*monterey Theme*/
+#monterey-bg {
+    background: url(../img/20101018_093546.jpg) no-repeat center center fixed;
+}
+
+#monterey-btn {
+    background-color: #3C273E;
+    border: 1px solid #3C273E;
+}
+
+#monterey-colOne {
+    border: 5px solid #3C273E;
+}
+
+#monterey-colTwo {
+    background-color: #3C273E;
+}
+
+.monterey-border {
+    border: 1px solid #3C273E !important;
+}/*monterey theme end*/
+
+/*sf theme*/
+#sf-bg {
+    background: url(../img/IMG_5140.JPG) no-repeat center center fixed;
+}
+
+#sf-btn {
+    background-color: #A90000;
+    border: 1px solid #A90000;
+}
+
+#sf-colOne {
+    border: 5px solid #A90000;
+}
+
+#sf-colTwo {
+    background-color: #A90000;
+}
+
+.sf-border {
+    border: 1px solid #A90000 !important;
+}/*sf theme end*/
+
+/*los gatos theme*/
+#lg-bg {
+    background: url(../img/20100322_084230.jpg) no-repeat center center fixed;
+}
+
+#lg-btn {
+    background-color: #784444;
+    border: 1px solid #784444;
+}
+
+#lg-colOne {
+    border: 5px solid #784444;
+}
+
+#lg-colTwo {
+    background-color: #784444;
+}
+
+.lg-border {
+    border: 1px solid #784444 !important;
+}/*los gatos theme end*/
+
+/*break off theme*/
+#break-bg {
+    background: url(../img/1280px-Brian_Shul_in_the_cockpit_of_the_SR-71_Blackbird.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#break-btn {
+    background-color: #c68519;
+    border: 1px solid #c68519;
+}
+
+#break-colOne {
+    border: 5px solid #c68519;
+}
+
+#break-colTwo {
+    background-color: #c68519;
+}
+
+.break-border {
+    border: 1px solid #c68519 !important;
+}/*end break off theme*/
+
+/*sunlight theme*/
+#sunlight-bg {
+    background: url(../img/20100520_152935.jpg) no-repeat center center fixed;
+}
+
+#sunlight-btn {
+    background-color: gold;
+    border: 1px solid gold;
+}
+
+#sunlight-colOne {
+    border: 5px solid gold;
+}
+
+#sunlight-colTwo {
+    background-color: gold;
+}
+
+.sunlight-border {
+    border: 1px solid gold !important;
+}/*sunlight theme end*/
+
+/*tahoe theme*/
+#tahoe-bg {
+    background: url(../img/IMG_5298.JPG) no-repeat center center fixed;
+}
+
+#tahoe-btn {
+    background-color: #8096C0;
+    border: 1px solid #8096C0;
+}
+
+#tahoe-colOne {
+    border: 5px solid #8096C0;
+}
+
+#tahoe-colTwo {
+    background-color: #8096C0;
+}
+
+.tahoe-border {
+    border: 1px solid #8096C0 !important;
+}/*end tahoe theme*/
+
+/*santa cruz theme*/
+#cruz-bg {
+    background: url(../img/IMG_0207_small.JPG) no-repeat center center fixed;
+}
+
+#cruz-btn {
+    background-color: black;
+    border: 1px solid black;
+}
+
+#cruz-colOne {
+    border: 5px solid black;
+}
+
+#cruz-colTwo {
+    background-color: black;
+}
+
+.cruz-border {
+    border: 1px solid black !important;
+}/*end santa cruz theme*/
+
+
+
