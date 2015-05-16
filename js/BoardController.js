@@ -8,6 +8,11 @@ function BoardController($firebaseObject) {
     //tie 'this' to BoardController
     var self = this;
 
+    var player = null;
+    self.playerAlert = null;
+
+
+
     //Firebase hookup
     var ref = new Firebase("https://glowing-torch-9844.firebaseio.com");
     self.game = $firebaseObject(ref.child("game"));
@@ -19,6 +24,7 @@ function BoardController($firebaseObject) {
         if (self.game.gameOver) {
 
             self.game.gameOverAlert = "The game is over, no play is allowed.  Start a new game.";
+            self.game.gameAlert = true;
             self.game.$save();
 
             //if the game is not over, then allow a player to make a move
@@ -27,22 +33,26 @@ function BoardController($firebaseObject) {
                 //player can place a game piece if the box is empty
                 if (self.game.gameBoard[location].value === 0) {
 
-                    if (self.game.playerOneTurn) {
+                    if (self.game.playerOneTurn && player === 0) {
 
-                        // playerOne's turn
+                        // playerOne's turn && reset gameAlert
                         self.game.gameBoard[location].content = 'fa fa-times';
                         self.game.gameBoard[location].value = 1;
                         self.game.playerOneTurn = false;
                         self.game.alreadyPlayedAlert = " ";
+                        self.game.gameAlert = false;
+                        self.playerAlert = null;
                         self.game.$save();
 
-                    } else {
+                    } else if (self.game.playerOneTurn === false && player === 1) {
 
-                        //playerTwo's turn
+                        //playerTwo's turn && reset gameAlert
                         self.game.gameBoard[location].content = 'fa fa-circle-o';
                         self.game.gameBoard[location].value = -1;
                         self.game.playerOneTurn = true;
                         self.game.alreadyPlayedAlert = " ";
+                        self.game.gameAlert = false;
+                        self.playerAlert = null;
                         self.game.$save();
 
                     }
@@ -52,7 +62,7 @@ function BoardController($firebaseObject) {
                     self.game.$save();
 
                     //check for a tie, otherwise check for a winner
-                    if (self.game.moveCount === 9 && self.game.winner === " ") {
+                    if (self.game.moveCount === 18 && self.game.winner === " ") {
 
                         self.game.winner = "Nobody!  It's a cats game.";
                         self.game.gameOver = true;
@@ -65,6 +75,7 @@ function BoardController($firebaseObject) {
 
                     //alert if the box  has been played already
                     self.game.alreadyPlayedAlert = "This square has been played. Choose a different square.";
+                    self.game.gameAlert = true;
                     self.game.$save();
 
                 }
@@ -190,8 +201,10 @@ function BoardController($firebaseObject) {
         self.game.gameOverAlert = " ";
         self.game.winner = " ";
         self.game.alreadyPlayedAlert = " ";
+        self.game.gameAlert = false;
         self.game.moveCount = 0;
         self.game.playerOneTurn = true;
+        self.playerAlert = null;
         self.game.$save();
 
     } //end of startNewGame
@@ -202,5 +215,26 @@ function BoardController($firebaseObject) {
         self.game.playerTwoWinCount = 0;
         self.game.$save();
     }//end of clearAllWins
+
+    //prevent players from clicking when it's not their turn
+    self.game.$loaded().then(function (snapshot) {
+        console.log(snapshot);
+
+        //set playerOne
+        if (self.game.playerCheck === 0) {
+            player = 0;
+            self.game.playerCheck = 1;
+            self.game.$save();
+            self.playerAlert = "Welcome, you are Player One.  You go first.";
+
+          //sent playerTwo
+        } else if (self.game.playerCheck === 1) {
+            player = 1;
+            self.game.playerCheck = 0;
+            self.game.$save();
+            self.playerAlert = "Welcome, you are Player Two.  You go second.";
+        }
+
+    });
 
 }

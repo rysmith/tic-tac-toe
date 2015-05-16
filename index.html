@@ -35,7 +35,7 @@
                 </p>
             </div>
             <div class="instructions">
-                <p><i class="fa fa-flag"></i> Game Alerts: {{board.game.alreadyPlayedAlert}}{{board.game.gameOverAlert}}</p>
+                <p><i class="fa fa-flag" ng-class="{gameAlert:board.game.gameAlert}"></i> Game Alerts: {{board.game.alreadyPlayedAlert}}{{board.game.gameOverAlert}}{{board.playerAlert}}{{board.wrongTurnAlert}}</p>
 
                 <hr/>
 

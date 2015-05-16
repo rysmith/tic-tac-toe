@@ -9,10 +9,6 @@ body {
     background-size: cover;
 }
 
-select {
-    float:right;
-}
-
 #wrapper {
     padding-left: 150px;
     padding-right: 150px;
@@ -26,14 +22,6 @@ select {
     margin-right: 10px;
 }
 
-.box-content {
-    padding-top: 25px;
-}
-
-.box-content i {
-    font-size: 50px;
-}
-
 .colOne {
     background-color: white;
     border-radius: 20px;
@@ -43,11 +31,60 @@ select {
 
 }
 
+/*css animations*/
+.gameAlert {
+    color: #ff6329;
+
+}
+
+#change-color
+{
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    border-radius: 300px;
+    position: relative;
+    -webkit-animation-name: gameAlert;
+    -webkit-animation-duration: 50s;
+    animation-name: change-color;
+    animation-duration: 5s;
+    -webkit-animation-delay: 1s;
+    animation-delay: 1s;
+
+}
+@-webkit-keyframes change-color{
+    0%{background-color: red; left: 0px; top: 0px;}
+    10%{background-color: yellow; left: 200px; top: 0px;}
+    20%{background-color: purple; left: 200px; top: 200px}
+    30%{background-color: blue; left: 0px; top: 200px;}
+    40%{background-color: black; left: 0px; top: 0px;}
+    50%{background-color: purple; left: 100px; top: 100px;}
+    60%{background-color: red; left: 0px; top: 200px;}
+    70%{background-color: yellow; left: 40px; top: 50px;}
+    80%{background-color: purple; left: 10px; top: 10px;}
+    90%{background-color: blue; left: 50px; top: 0px;}
+    100%{background-color: black; left: 40px; top: 20px;}
+}
+@keyframes change-color{
+    0%{background-color: red; left: 0px; top: 0px;}
+    10%{background-color: yellow; left: 200px; top: 0px;}
+    20%{background-color: purple; left: 200px; top: 200px}
+    30%{background-color: blue; left: 0px; top: 200px;}
+    40%{background-color: black; left: 0px; top: 0px;}
+    50%{background-color: purple; left: 100px; top: 100px;}
+    60%{background-color: red; left: 0px; top: 200px;}
+    70%{background-color: yellow; left: 40px; top: 50px;}
+    80%{background-color: purple; left: 10px; top: 10px;}
+    90%{background-color: blue; left: 50px; top: 0px;}
+    100%{background-color: black; left: 40px; top: 20px;}
+}
+/*end css animations*/
+
+/*responsive design on screen collapse*/
 @media screen and (max-width: 1103px) {
     .instructions {
         display: none !important;
     }
-
 }
 
 @media screen and (max-width: 1103px) {
@@ -60,8 +97,21 @@ select {
     .btn-left {
         margin-left:30px !important;
     }
+}/*end responsive design*/
+
+.row {
+    margin-top: 20px;
 }
 
+.winner-result {
+    border: 1px solid #0FA0CE;
+    border-radius: 12px;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+/*gameBoard*/
 .colTwo {
     background-color: #0FA0CE;
     border-radius: 20px;
@@ -88,16 +138,13 @@ select {
     cursor: pointer;
 }
 
-.row {
-    margin-top: 20px;
+
+.box-content {
+    padding-top: 25px;
 }
 
-.winner-result {
-    border: 1px solid #0FA0CE;
-    border-radius: 12px;
-    padding-left: 20px;
-    padding-top: 20px;
-    margin-bottom: 30px;
+.box-content i {
+    font-size: 50px;
 }
 
 .first-row {
@@ -139,6 +186,15 @@ select {
     width: 32.9%;
     float: left;
 }
+/*end gameBoard*/
+
+/*START THE THEMES*/
+
+/*theme dropdown*/
+select {
+    float:right;
+}
+
 /*monterey Theme*/
 #monterey-bg {
     background: url(../img/20101018_093546.jpg) no-repeat center center fixed;
@@ -296,6 +352,7 @@ select {
 .cruz-border {
     border: 1px solid black !important;
 }/*end santa cruz theme*/
+/*END THEMES*/
 
 
 

@@ -90,7 +90,9 @@
     "moveCount": 0,
     "gameOver": false,
     "alreadyPlayedAlert": " ",
-    "gameOverAlert": " "
+    "gameOverAlert": " ",
+    "gameAlert": false,
+    "playerCheck": 0
   }
 
 }
