@@ -89,9 +89,6 @@
     "playerOneTurn": true,
     "moveCount": 0,
     "gameOver": false,
-    "alreadyPlayedAlert": " ",
-    "gameOverAlert": " ",
-    "gameAlert": false,
     "playerCheck": 0
   }
 

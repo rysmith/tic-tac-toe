@@ -8,10 +8,10 @@ function BoardController($firebaseObject) {
     //tie 'this' to BoardController
     var self = this;
 
+    //local variables for alerts and player identification
     var player = null;
     self.playerAlert = null;
-
-
+    self.gameAlert = null;
 
     //Firebase hookup
     var ref = new Firebase("https://glowing-torch-9844.firebaseio.com");
@@ -23,8 +23,8 @@ function BoardController($firebaseObject) {
         //before allowing play, check the status of the game
         if (self.game.gameOver) {
 
-            self.game.gameOverAlert = "The game is over, no play is allowed.  Start a new game.";
-            self.game.gameAlert = true;
+            self.playerAlert = "The game is over, no play is allowed.  Start a new game.";
+            self.gameAlert = true;
             self.game.$save();
 
             //if the game is not over, then allow a player to make a move
@@ -39,8 +39,7 @@ function BoardController($firebaseObject) {
                         self.game.gameBoard[location].content = 'fa fa-times';
                         self.game.gameBoard[location].value = 1;
                         self.game.playerOneTurn = false;
-                        self.game.alreadyPlayedAlert = " ";
-                        self.game.gameAlert = false;
+                        self.gameAlert = false;
                         self.playerAlert = null;
                         self.game.$save();
 
@@ -50,8 +49,7 @@ function BoardController($firebaseObject) {
                         self.game.gameBoard[location].content = 'fa fa-circle-o';
                         self.game.gameBoard[location].value = -1;
                         self.game.playerOneTurn = true;
-                        self.game.alreadyPlayedAlert = " ";
-                        self.game.gameAlert = false;
+                        self.gameAlert = false;
                         self.playerAlert = null;
                         self.game.$save();
 
@@ -74,8 +72,8 @@ function BoardController($firebaseObject) {
                 } else {
 
                     //alert if the box  has been played already
-                    self.game.alreadyPlayedAlert = "This square has been played. Choose a different square.";
-                    self.game.gameAlert = true;
+                    self.playerAlert = "This square has been played. Choose a different square.";
+                    self.gameAlert = true;
                     self.game.$save();
 
                 }
@@ -198,13 +196,11 @@ function BoardController($firebaseObject) {
             self.game.gameBoard[i].value = 0;
         }
         self.game.gameOver = false;
-        self.game.gameOverAlert = " ";
         self.game.winner = " ";
-        self.game.alreadyPlayedAlert = " ";
-        self.game.gameAlert = false;
+        self.gameAlert = false;
+        self.playerAlert = null;
         self.game.moveCount = 0;
         self.game.playerOneTurn = true;
-        self.playerAlert = null;
         self.game.$save();
 
     } //end of startNewGame
@@ -226,6 +222,7 @@ function BoardController($firebaseObject) {
             self.game.playerCheck = 1;
             self.game.$save();
             self.playerAlert = "Welcome, you are Player One.  You go first.";
+            self.gameAlert = true;
 
           //sent playerTwo
         } else if (self.game.playerCheck === 1) {
@@ -233,6 +230,7 @@ function BoardController($firebaseObject) {
             self.game.playerCheck = 0;
             self.game.$save();
             self.playerAlert = "Welcome, you are Player Two.  You go second.";
+            self.gameAlert = true;
         }
 
     });
