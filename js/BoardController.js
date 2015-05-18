@@ -62,7 +62,7 @@ function BoardController($firebaseObject) {
                     self.game.$save();
 
                     //check for a tie, otherwise check for a winner
-                    if (self.game.moveCount === 18 && self.game.winner === " ") {
+                    if (self.game.moveCount === 9 && self.game.winner === " ") {
 
                         self.game.winner = "Nobody!  It's a cats game.";
                         self.game.gameOver = true;
@@ -90,14 +90,18 @@ function BoardController($firebaseObject) {
                 //end game in favor of playerOne
                 self.game.gameOver = true;
                 self.game.playerOneWinCount++;
+                self.game.moveCount = 0;
                 self.game.winner = " ";
+                self.game.$save();
 
             } else if (self.checkForWinner() === "Player Two") {
 
                 //end game in favor of player two
                 self.game.gameOver = true;
                 self.game.playerTwoWinCount++;
+                self.game.moveCount = 0;
                 self.game.winner = " ";
+                self.game.$save();
 
             }
         }
