@@ -33,6 +33,7 @@ function BoardController($firebaseObject) {
                 //player can place a game piece if the box is empty
                 if (self.game.gameBoard[location].value === 0) {
 
+                    //make sure it's playerOne's turn before allowing play
                     if (self.game.playerOneTurn && player === 0) {
 
                         // playerOne's turn && reset gameAlert
@@ -43,6 +44,7 @@ function BoardController($firebaseObject) {
                         self.playerAlert = null;
                         self.game.$save();
 
+                    //make sure it's playerTwo's turn before allowing play
                     } else if (self.game.playerOneTurn === false && player === 1) {
 
                         //playerTwo's turn && reset gameAlert
@@ -80,9 +82,9 @@ function BoardController($firebaseObject) {
 
             }
 
-        //increment playerWinCount
+        //check winner and increment playerWinCount
         if (self.game.gameOver === false) {
-            //check for a winner
+
             if (self.checkForWinner() === "Player One") {
 
                 //end game in favor of playerOne
@@ -99,6 +101,7 @@ function BoardController($firebaseObject) {
 
             }
         }
+
         }; //end of playerMove
 
     //playerOne can win, playerTwo can win, or it can be a tie (cats) game
@@ -181,6 +184,7 @@ function BoardController($firebaseObject) {
 
         } //end of threeBoxArray()
 
+        //save winner to firebase
         self.game.$save();
 
         return self.game.winner;
@@ -205,6 +209,7 @@ function BoardController($firebaseObject) {
 
     } //end of startNewGame
 
+    //only reset wins, no other resets
     self.clearAllWins = clearAllWins;
     function clearAllWins () {
         self.game.playerOneWinCount = 0;
@@ -213,8 +218,8 @@ function BoardController($firebaseObject) {
     }//end of clearAllWins
 
     //prevent players from clicking when it's not their turn
-    self.game.$loaded().then(function (snapshot) {
-        console.log(snapshot);
+    //this runs immediately, so we need to wait for the data before running
+    self.game.$loaded().then(function () {
 
         //set playerOne
         if (self.game.playerCheck === 0) {
