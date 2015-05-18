@@ -23,7 +23,7 @@ function BoardController($firebaseObject) {
         //before allowing play, check the status of the game
         if (self.game.gameOver) {
 
-            self.playerAlert = "The game is over, no play is allowed.  Start a new game.";
+            self.playerAlert = "Please start a new game.";
             self.gameAlert = true;
             self.game.$save();
 
@@ -72,7 +72,7 @@ function BoardController($firebaseObject) {
                 } else {
 
                     //alert if the box  has been played already
-                    self.playerAlert = "This square has been played. Choose a different square.";
+                    self.playerAlert = "Please choose a different square.";
                     self.gameAlert = true;
                     self.game.$save();
 

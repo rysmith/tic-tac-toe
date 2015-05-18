@@ -32,51 +32,46 @@ body {
 }
 
 /*css animations*/
+.game-alert {
+    float:right;
+    margin-right: 20px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 10px 10px 30px;
+    opacity: 0;
+}
+
+/*css animations*/
 .gameAlert {
     color: #ff6329;
+    width: 340px;
+    -webkit-animation-name: game-alert;
+    -moz-animation-name: game-alert;
+    -o-animation-name: game-alert;
+    animation-name: game-alert;
+    -webkit-animation-duration: 6s;
+    -moz-animation-duration: 6s;
+    -o-animation-duration: 6s;
+    animation-duration: 6s;
+}
+
+@-webkit-keyframes game-alert {
+    0%{opacity: 1;}
+    20%{opacity: 1;}
+    40%{opacity: 1;}
+    60%{opacity: 1;}
+    80%{opacity: 1;}
+    100%{opacity: 0;}
 
 }
 
-#change-color
-{
-    width: 300px;
-    height: 300px;
-    background-color: red;
-    border-radius: 300px;
-    position: relative;
-    -webkit-animation-name: gameAlert;
-    -webkit-animation-duration: 50s;
-    animation-name: change-color;
-    animation-duration: 5s;
-    -webkit-animation-delay: 1s;
-    animation-delay: 1s;
-
-}
-@-webkit-keyframes change-color{
-    0%{background-color: red; left: 0px; top: 0px;}
-    10%{background-color: yellow; left: 200px; top: 0px;}
-    20%{background-color: purple; left: 200px; top: 200px}
-    30%{background-color: blue; left: 0px; top: 200px;}
-    40%{background-color: black; left: 0px; top: 0px;}
-    50%{background-color: purple; left: 100px; top: 100px;}
-    60%{background-color: red; left: 0px; top: 200px;}
-    70%{background-color: yellow; left: 40px; top: 50px;}
-    80%{background-color: purple; left: 10px; top: 10px;}
-    90%{background-color: blue; left: 50px; top: 0px;}
-    100%{background-color: black; left: 40px; top: 20px;}
-}
-@keyframes change-color{
-    0%{background-color: red; left: 0px; top: 0px;}
-    10%{background-color: yellow; left: 200px; top: 0px;}
-    20%{background-color: purple; left: 200px; top: 200px}
-    30%{background-color: blue; left: 0px; top: 200px;}
-    40%{background-color: black; left: 0px; top: 0px;}
-    50%{background-color: purple; left: 100px; top: 100px;}
-    60%{background-color: red; left: 0px; top: 200px;}
-    70%{background-color: yellow; left: 40px; top: 50px;}
-    80%{background-color: purple; left: 10px; top: 10px;}
-    90%{background-color: blue; left: 50px; top: 0px;}
-    100%{background-color: black; left: 40px; top: 20px;}
+@keyframes game-alert {
+    0%{opacity: 1;}
+    20%{opacity: 1;}
+    40%{opacity: 1;}
+    60%{opacity: 1;}
+    80%{opacity: 1;}
+    100%{opacity: 0;}
 }
 /*end css animations*/
 

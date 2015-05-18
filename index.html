@@ -22,6 +22,7 @@
             <option value="sunlight">Sunlight</option>
             <option value="break">Break Off Effect</option>
         </select>
+        <div class="game-alert" ng-class="{gameAlert:board.gameAlert}"><i class="fa fa-flag" ></i> {{board.playerAlert}}</div>
     </div>
     <div class="row">
         <!-- left column -->
@@ -35,15 +36,14 @@
                 </p>
             </div>
             <div class="instructions">
-                <p><i class="fa fa-flag" ng-class="{gameAlert:board.gameAlert}"></i> Game Alerts: {{board.playerAlert}}</p>
 
                 <hr/>
-
 
                 <h5><i class="fa fa-info-circle"></i> Instructions</h5>
                 <p>
                 Player One uses the '<i class="fa fa-times"></i>' game pieces.  Player Two uses the '<i class="fa fa-circle-o"></i>' game pieces.  Player One goes first by placing a game piece on the board.  Click a particular square to place a game piece.  Players alternate turns there after.  Once a a square has been played it cannot be changed.  If either player gets three game pieces in a row, the game ends in favor of that player.  If neither player gets three in a row, the game is a tie (cats) game.
                 </p>
+                <hr/>
             </div>
 
         </div> <!-- left column end -->
