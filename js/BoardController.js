@@ -40,6 +40,7 @@ function BoardController($firebaseObject) {
                         self.game.gameBoard[location].content = 'fa fa-times';
                         self.game.gameBoard[location].value = 1;
                         self.game.playerOneTurn = false;
+                        self.game.moveCount++;
                         self.gameAlert = false;
                         self.playerAlert = null;
                         self.game.$save();
@@ -51,15 +52,12 @@ function BoardController($firebaseObject) {
                         self.game.gameBoard[location].content = 'fa fa-circle-o';
                         self.game.gameBoard[location].value = -1;
                         self.game.playerOneTurn = true;
+                        self.game.moveCount++;
                         self.gameAlert = false;
                         self.playerAlert = null;
                         self.game.$save();
 
                     }
-
-                    //once a player has moved, increment the move count
-                    self.game.moveCount++;
-                    self.game.$save();
 
                     //check for a tie, otherwise check for a winner
                     if (self.game.moveCount === 9 && self.game.winner === " ") {
