@@ -113,18 +113,37 @@ function BoardController($firebaseObject) {
         createThreeBoxArrays();
         function createThreeBoxArrays() {
             var threeBoxArray = [];
+            var boardInfo = [
+              {
+                numChecks: 3,
+                field: "row"
+              },
+              {
+                numChecks: 3,
+                field: "column"
+              },
+              {
+                numChecks: 2,
+                field: "row",
+                extraCheckAmount: 3
+              },
+            ];
 
-            createRowsAndCheck();
-            createColumnsAndCheck();
-            createDiagonalsAndCheck();
+            var field;
+            var numChecks;
 
-            //check the rows with checkThreeBoxArray()
-            function createRowsAndCheck () {
-                for (var j = 1; j < 4; j++) {
-                    for (var i = 0; i < 9; i++) {
-                        if (self.game.gameBoard[i].row === j) {
-                            //create row array
-                            threeBoxArray.push(self.game.gameBoard[i].value);
+            // loops over each possible victory type
+            for(var i = 0; i < boardInfo.length; i++){
+                field = boardInfo[i]["field"];
+                numChecks = boardInfo[i]["numChecks"] + 1;
+                extraCheckAmount = boardInfo[i]["extraCheckAmount"];
+                // loops over the possible victory types of this field
+                for (var checkIndex = 1; checkIndex < numChecks; checkIndex++) {
+                    // loops over all the squares on the board
+                    for (var boxIndex = 0; boxIndex < 9; boxIndex++) {
+                        // extra check amount is an optional field and should be ignored if its not provided
+                        if (self.game.gameBoard[boxIndex][field] === checkIndex || (extraCheckAmount && self.game.gameBoard[boxIndex][field] === extraCheckAmount)) {
+                            threeBoxArray.push(self.game.gameBoard[boxIndex].value);
                             if (threeBoxArray.length === 3) {
                                 checkThreeBoxArray(threeBoxArray);
                                 threeBoxArray = [];
@@ -132,41 +151,7 @@ function BoardController($firebaseObject) {
                         }
                     }
                 }
-            } //end of row check
-
-            //check the columns with checkThreeBoxArray()
-            function createColumnsAndCheck () {
-                for (var p = 1; p < 4; p++) {
-                    for (var q = 0; q < 9; q++) {
-                        if (self.game.gameBoard[q].column === p) {
-                            //create column array
-                            threeBoxArray.push(self.game.gameBoard[q].value);
-                            if (threeBoxArray.length === 3) {
-                                checkThreeBoxArray(threeBoxArray);
-                                threeBoxArray = [];
-                            }
-
-                        }
-                    }
-                }
-            } //end of column check
-
-            //check the diagonals with checkThreeBoxArray()
-            function createDiagonalsAndCheck () {
-                for (var r = 1; r < 3; r++) {
-                    for (var w = 0; w < 9; w++) {
-                        if (self.game.gameBoard[w].diagonal === r || self.game.gameBoard[w].diagonal === 3) {
-                            //create column array
-                            threeBoxArray.push(self.game.gameBoard[w].value);
-                            if (threeBoxArray.length === 3) {
-                                checkThreeBoxArray(threeBoxArray);
-                                threeBoxArray = [];
-                            }
-
-                        }
-                    }
-                }
-            } //end of diagonal check
+            }
 
             //sets winner and increments either playerOneWinCount or playerTwoWinCount
             function checkThreeBoxArray(threeBoxArray) {
@@ -240,3 +225,4 @@ function BoardController($firebaseObject) {
     });
 
 }
+
