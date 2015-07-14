@@ -170,15 +170,12 @@ function BoardController($firebaseObject) {
 
             //sets winner and increments either playerOneWinCount or playerTwoWinCount
             function checkThreeBoxArray(threeBoxArray) {
-                var boxZero = threeBoxArray[0];
-                var boxOne = threeBoxArray[1];
-                var boxTwo = threeBoxArray[2];
-                if ((boxZero + boxOne + boxTwo) === 3) {
-                    self.game.winner = "Player One";
-                    self.game.gameOver = true;
-                    self.game.$save();
-                } else if ((boxZero + boxOne + boxTwo) === -3) {
-                    self.game.winner = "Player Two";
+                var sum = 0;
+                for(var i = 0; i <= 2; i++){
+                  sum += threeBoxArray[i];
+                }
+                if (sum === 3 || sum === -3) {
+                    self.game.winner = sum == 3 ? "Player One" : "Player Two";
                     self.game.gameOver = true;
                     self.game.$save();
                 }
